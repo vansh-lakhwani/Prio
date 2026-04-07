@@ -48,7 +48,8 @@ export function TaskModal({ isOpen, onClose, taskId, userId }: TaskModalProps) {
   const { updateTaskOptimistic, addTaskOptimistic } = useDashboardStore()
 
   useEffect(() => {
-    if (taskId && isOpen) {
+    // Only fetch if authenticated and modal is opening/open with an ID
+    if (taskId && isOpen && userId) {
       fetchTaskData()
     } else if (!taskId && isOpen) {
       setFormData({
@@ -61,9 +62,11 @@ export function TaskModal({ isOpen, onClose, taskId, userId }: TaskModalProps) {
       })
       setDeletedSubtaskIds([])
     }
-  }, [taskId, isOpen])
+  }, [taskId, isOpen, userId])
 
   const fetchTaskData = async () => {
+    if (!taskId || !userId) return;
+    
     setIsLoadingTask(true)
     try {
       const { data, error } = await supabase
@@ -72,7 +75,15 @@ export function TaskModal({ isOpen, onClose, taskId, userId }: TaskModalProps) {
         .eq('id', taskId)
         .single()
 
-      if (error) throw error
+      if (error) {
+        // Handle "No rows found" gracefully - could be mid-delete or permission issue
+        if (error.code === 'PGRST116') {
+          console.warn('[TaskModal] Task entry unreachable or already unmounted.');
+          onClose();
+          return;
+        }
+        throw error;
+      }
 
       if (data) {
         setFormData({
@@ -87,9 +98,12 @@ export function TaskModal({ isOpen, onClose, taskId, userId }: TaskModalProps) {
           }))
         })
       }
-    } catch (error) {
+    } catch (error: any) {
+      // Don't show toast for session-missing errors during logout/mount
+      if (error?.message?.includes('Auth session missing')) return;
+      
       console.error('Error fetching task:', error)
-      toast.error('Failed to load task data')
+      toast.error('Failed to load task details')
     } finally {
       setIsLoadingTask(false)
     }
@@ -166,7 +180,7 @@ export function TaskModal({ isOpen, onClose, taskId, userId }: TaskModalProps) {
 
       console.log('[TaskModal] Upserting parent task...');
       const { data: taskRes, error: taskError } = taskId 
-        ? await supabase.from('tasks').update(taskData).eq('id', taskId).select().single()
+        ? await supabase.from('tasks').update(taskData).eq('id', taskId).eq('user_id', userId).select().single()
         : await supabase.from('tasks').insert(taskData).select().single()
 
       if (taskError) {
@@ -189,7 +203,7 @@ export function TaskModal({ isOpen, onClose, taskId, userId }: TaskModalProps) {
       }
 
       // 3. Upsert Subtasks
-      if (formData.subtasks.length > 0) {
+      if (formData.subtasks.length > 0 && savedTaskId) {
         console.log('[TaskModal] Upserting subtasks:', formData.subtasks.length);
         const subtasksToUpsert = formData.subtasks.map(s => ({
           ...(s.id ? { id: s.id } : {}),
@@ -201,10 +215,16 @@ export function TaskModal({ isOpen, onClose, taskId, userId }: TaskModalProps) {
           updated_at: new Date().toISOString()
         }))
 
-        const { error: subError } = await supabase.from('subtasks').upsert(subtasksToUpsert)
-        if (subError) {
-          console.error('[TaskModal] Error upserting subtasks:', subError);
-          throw subError;
+        try {
+          const { error: subError } = await supabase.from('subtasks').upsert(subtasksToUpsert)
+          if (subError) {
+            console.error('[TaskModal] Error upserting subtasks (Schema mismatch?):', subError);
+            // We toast but don't THROW, allowing the main task to remain saved
+            toast.error('Task saved, but subtasks failed to sync. Check schema.');
+          }
+        } catch (subExc) {
+          console.error('[TaskModal] Critical exception during subtask upsert:', subExc);
+          toast.error('Partial save: Subtasks could not be processed.');
         }
       }
 

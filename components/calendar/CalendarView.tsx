@@ -194,10 +194,8 @@ export function CalendarView() {
             </div>
           </div>
           
-          <div className="flex bg-surface-low p-1.5 rounded-2xl">
-             <button onClick={() => setViewMode('month')} className={`px-5 py-2 text-xs font-bold font-display uppercase tracking-widest rounded-xl flex items-center gap-2 transition-all ${viewMode === 'month' ? 'bg-primary text-surface-lowest shadow-lg shadow-primary/20' : 'text-foreground/40 hover:text-foreground'}`}><LayoutGrid className="w-4 h-4" /> <span className="hidden sm:inline">Month</span></button>
-             <button onClick={() => setViewMode('week')} className={`px-5 py-2 text-xs font-bold font-display uppercase tracking-widest rounded-xl flex items-center gap-2 transition-all ${viewMode === 'week' ? 'bg-primary text-surface-lowest shadow-lg shadow-primary/20' : 'text-foreground/40 hover:text-foreground'}`}><Rows3 className="w-4 h-4" /> <span className="hidden sm:inline">Week</span></button>
-             <button onClick={() => setViewMode('day')} className={`px-5 py-2 text-xs font-bold font-display uppercase tracking-widest rounded-xl flex items-center gap-2 transition-all ${viewMode === 'day' ? 'bg-primary text-surface-lowest shadow-lg shadow-primary/20' : 'text-foreground/40 hover:text-foreground'}`}><AlignRight className="w-4 h-4" /> <span className="hidden sm:inline">Day</span></button>
+          <div className="flex bg-surface-low p-1.5 rounded-2xl opacity-50 grayscale cursor-not-allowed" title="Week/Day views coming soon">
+             <button className={`px-5 py-2 text-xs font-bold font-display uppercase tracking-widest rounded-xl flex items-center gap-2 transition-all bg-primary text-surface-lowest shadow-lg shadow-primary/20`}><LayoutGrid className="w-4 h-4" /> <span className="hidden sm:inline">Month</span></button>
           </div>
         </div>
 

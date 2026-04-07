@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { 
   LayoutDashboard, 
   KanbanSquare, 
@@ -27,8 +27,18 @@ const navItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const { profile, signOut } = useAuth();
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+      router.push('/login');
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
 
   return (
     <motion.aside 
@@ -88,7 +98,7 @@ export function Sidebar() {
       {/* Bottom Area (Profile) */}
       <div className="p-6 bg-surface-standard/30 flex flex-col gap-6">
         {/* Profile Card / Avatar */}
-        <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'gap-4 px-4 py-3 bg-surface-highest rounded-2xl transition-all hover:bg-surface-bright shadow-sm'}`}>
+        <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'gap-4 px-4 py-3 bg-surface-highest rounded-2xl transition-all hover:bg-surface-bright shadow-sm relative group/profile'}`}>
           <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-primary to-primary-container flex-shrink-0 flex items-center justify-center text-surface-lowest font-bold capitalize">
             {profile?.full_name?.charAt(0) || profile?.email?.charAt(0) || 'U'}
           </div>
@@ -98,7 +108,29 @@ export function Sidebar() {
               <p className="text-xs font-medium text-foreground/40 truncate w-full">{profile?.email || 'user@example.com'}</p>
             </div>
           )}
+          
+          {/* Quick Logout Button (Desktop) */}
+          {!isCollapsed && (
+            <button 
+              onClick={handleLogout}
+              className="p-2 text-foreground/20 hover:text-danger-standard hover:bg-danger-standard/10 rounded-xl transition-all duration-300"
+              title="Logout"
+            >
+              <LogOut className="w-5 h-5" />
+            </button>
+          )}
         </div>
+
+        {/* Collapsed Logout Icon */}
+        {isCollapsed && (
+          <button 
+            onClick={handleLogout}
+            className="flex items-center justify-center py-4 text-foreground/20 hover:text-danger-standard hover:bg-danger-standard/10 rounded-2xl transition-all duration-300"
+            title="Logout"
+          >
+            <LogOut className="w-6 h-6" />
+          </button>
+        )}
       </div>
     </motion.aside>
   );

@@ -1,8 +1,8 @@
-﻿'use client'
+'use client'
 
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { Link2, Calendar, CheckCircle2, AlertCircle, Loader2, RefreshCw } from 'lucide-react'
+import { Link2, Calendar, CheckCircle2, AlertCircle, Loader2, RefreshCw, Smartphone, Globe } from 'lucide-react'
 import { toast } from 'sonner'
 import { syncGoogleCalendar } from '@/lib/actions/calendarSync'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -90,45 +90,76 @@ export function Integrations({ user, profile }: IntegrationsProps) {
   }
 
   return (
-    <section className="bg-surface rounded-3xl p-6 sm:p-8 shadow-sm relative overflow-hidden">
+    <section className="bg-surface/50 backdrop-blur-md border border-outline/10 rounded-[2.5rem] p-8 sm:p-10 shadow-xl relative overflow-hidden group">
       {/* Background Accent */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-kinetic/5 blur-3xl -z-10 rounded-full" />
-
-      <div className="flex items-center gap-3 mb-8">
-        <div className="p-2.5 rounded-2xl bg-kinetic/10 text-kinetic">
-          <Link2 className="w-5 h-5" />
+      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[100px] -z-10 rounded-full" />
+      
+      <div className="flex items-center gap-4 mb-10">
+        <div className="p-3.5 rounded-[1.25rem] bg-primary/10 text-primary shadow-inner">
+          <Link2 className="w-6 h-6" />
         </div>
         <div>
-          <h3 className="text-xl font-bold font-space-grotesk tracking-tight">Integrations</h3>
-          <p className="text-sm text-foreground/50">Connect Prio with your favorite tools.</p>
+          <h3 className="text-2xl font-black font-space-grotesk tracking-tight text-foreground">
+            Neural Bridges
+          </h3>
+          <p className="text-sm text-foreground/40 font-medium">
+            Connect Prio with your external productivity nodes.
+          </p>
         </div>
       </div>
 
-      <div className="space-y-4">
-        <div className="p-6 rounded-2xl border border-outline/10 bg-background/50">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-            <div className="flex items-center gap-4">
-              <div className="p-3 rounded-2xl bg-[#18221d] shadow-sm border border-outline/5">
-                <Calendar className="w-6 h-6 text-[#4285F4]" />
+      <div className="space-y-6">
+        {/* Google Calendar Integration */}
+        <div className={`p-8 rounded-[2rem] border transition-all duration-500 relative overflow-hidden ${
+          isEnabled ? 'border-primary/30 bg-primary/5 shadow-inner' : 'border-outline/10 bg-background/30 hover:bg-background/50'
+        }`}>
+          {isEnabled && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="absolute inset-0 pointer-events-none"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-[40px] rounded-full" />
+            </motion.div>
+          )}
+
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-8 relative z-10">
+            <div className="flex items-center gap-5">
+              <div className="relative">
+                <div className="p-4 rounded-[1.25rem] bg-surface-highest shadow-xl border border-outline/10">
+                  <Calendar className="w-8 h-8 text-[#4285F4]" />
+                </div>
+                {isEnabled && (
+                  <span className="absolute -top-1 -right-1 flex h-4 w-4">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-4 w-4 bg-primary"></span>
+                  </span>
+                )}
               </div>
               <div>
-                <h4 className="text-sm font-bold font-space-grotesk uppercase tracking-tighter">Google Calendar</h4>
-                <p className="text-xs text-foreground/50 mt-1">Bi-directional task synchronization.</p>
+                <h4 className="text-lg font-black font-space-grotesk uppercase tracking-widest text-foreground">
+                  Google Calendar
+                </h4>
+                <p className="text-[10px] font-medium text-foreground/40 mt-1 uppercase tracking-widest">
+                  Bi-directional Operational Sync
+                </p>
               </div>
             </div>
 
-            <button
-              onClick={toggleSync}
-              disabled={isLoading}
-              className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors focus:outline-none ${
-                isEnabled ? "bg-kinetic" : "bg-outline/30"
-              }`}
-            >
-              <motion.span
-                animate={{ x: isEnabled ? 24 : 4 }}
-                className="inline-block h-5 w-5 rounded-full bg-[#18221d] shadow-lg"
-              />
-            </button>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={toggleSync}
+                disabled={isLoading}
+                className={`relative inline-flex h-8 w-14 items-center rounded-full transition-all focus:outline-none shadow-inner ${
+                  isEnabled ? "bg-primary" : "bg-outline/20"
+                }`}
+              >
+                <motion.span
+                  animate={{ x: isEnabled ? 28 : 4 }}
+                  className="inline-block h-6 w-6 rounded-full bg-surface-highest shadow-xl border border-outline/5"
+                />
+              </button>
+            </div>
           </div>
 
           <AnimatePresence>
@@ -137,31 +168,52 @@ export function Integrations({ user, profile }: IntegrationsProps) {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="mt-6 pt-6 border-t border-outline/10 space-y-4"
+                className="mt-8 pt-8 border-t border-outline/5 space-y-4"
               >
-                <div className="flex items-center gap-4 p-4 rounded-xl bg-kinetic/5 border border-kinetic/10">
-                  <div className="p-1.5 rounded-lg bg-kinetic/10 text-kinetic">
-                    <CheckCircle2 className="w-4 h-4" />
+                <div className="flex items-center gap-5 p-5 rounded-2xl bg-background/50 border border-outline/5">
+                  <div className="p-2 rounded-xl bg-primary/10 text-primary">
+                    {isSyncing ? <Loader2 className="w-5 h-5 animate-spin" /> : <CheckCircle2 className="w-5 h-5" />}
                   </div>
                   <div className="flex-1">
-                    <p className="text-xs font-bold uppercase tracking-widest text-kinetic">Active</p>
-                    <p className="text-xs text-foreground/50 mt-0.5">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Active Channel</p>
+                    <p className="text-[11px] font-medium text-foreground/40 mt-0.5">
                       {lastSync 
-                        ? `Last synced: ${new Date(lastSync).toLocaleString()}` 
-                        : "Awaiting initial synchronization..."}
+                        ? `Last Pulse: ${new Date(lastSync).toLocaleString()}` 
+                        : "Awaiting initial synchronization cycle..."}
                     </p>
                   </div>
                   <button
                     onClick={handleManualSync}
                     disabled={isSyncing}
-                    className="p-2 rounded-xl hover:bg-kinetic/10 transition-colors disabled:opacity-50"
+                    className="p-3 rounded-xl hover:bg-primary/10 text-foreground transition-all disabled:opacity-50 group/sync"
                   >
-                    <RefreshCw className={`w-4 h-4 text-kinetic ${isSyncing ? "animate-spin" : ""}`} />
+                    <RefreshCw className={`w-5 h-5 transition-transform duration-700 ${isSyncing ? "animate-spin" : "group-hover/sync:rotate-180"}`} />
                   </button>
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
+        </div>
+
+        {/* Placeholder for Phone Sync Information */}
+        <div className="p-8 rounded-[2rem] border border-outline/5 bg-background/20 group/info hover:bg-background/30 transition-all duration-500">
+          <div className="flex items-start gap-5">
+            <div className="p-4 rounded-[1.25rem] bg-surface-highest/50 text-foreground/20 group-hover/info:text-primary transition-colors duration-500">
+              <Smartphone className="w-8 h-8" />
+            </div>
+            <div>
+              <h4 className="text-sm font-black font-space-grotesk uppercase tracking-widest text-foreground">
+                Mobile Synchronization
+              </h4>
+              <p className="text-[11px] font-medium text-foreground/40 mt-2 leading-relaxed">
+                To sync Prio with your smartphone, ensure you have the <span className="text-foreground">Google Calendar App</span> installed. Local Prio tasks are automatically projected onto your primary Google account, which then propagates to your mobile device's native calendar ecosystem.
+              </p>
+              <div className="mt-4 flex gap-3">
+                <span className="px-3 py-1 rounded-full bg-primary/5 border border-primary/10 text-[9px] font-black uppercase tracking-widest text-primary">iOS Compatible</span>
+                <span className="px-3 py-1 rounded-full bg-primary/5 border border-primary/10 text-[9px] font-black uppercase tracking-widest text-primary">Android Compatible</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

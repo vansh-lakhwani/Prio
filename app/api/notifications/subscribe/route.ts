@@ -1,19 +1,27 @@
 import { NextResponse } from "next/server";
 import webpush from "web-push";
 
-const vapidKeys = {
-  publicKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
-  privateKey: process.env.VAPID_PRIVATE_KEY!,
-};
+// VAPID details will be set inside the handler to prevent build-time crashes
 
-webpush.setVapidDetails(
-  process.env.VAPID_MAILTO!,
-  vapidKeys.publicKey,
-  vapidKeys.privateKey
-);
 
 export async function POST(request: Request) {
   try {
+    if (
+      process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY &&
+      process.env.VAPID_PRIVATE_KEY &&
+      process.env.VAPID_MAILTO
+    ) {
+      try {
+        webpush.setVapidDetails(
+          process.env.VAPID_MAILTO,
+          process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+          process.env.VAPID_PRIVATE_KEY
+        );
+      } catch (err) {
+        console.warn("VAPID Key Configuration Error:", err);
+      }
+    }
+
     const subscription = await request.json();
 
     // In a real production app, we would store this in Supabase

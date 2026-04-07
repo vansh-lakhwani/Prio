@@ -75,7 +75,7 @@ export const useDashboardStore = create<DashboardState>((set, get) => ({
       const incomingTime = new Date(updates.updated_at).getTime();
       const existingTime = new Date(existing.updated_at).getTime();
       
-      // If server data is older than current UI state, skip it (likely a stale Realtime event)
+      // Only skip if server data is EXPLICITLY older than current UI state
       if (incomingTime < existingTime) {
         console.warn(`[Realtime] Stale update for task ${id.slice(0, 8)}: incoming ${updates.updated_at} < existing ${existing.updated_at}`);
         return state;
@@ -86,7 +86,10 @@ export const useDashboardStore = create<DashboardState>((set, get) => ({
     const newTasks = state.tasks.map((t) => (t.id === id ? { 
       ...t, 
       ...updates, 
-      updated_at: updates.updated_at || new Date().toISOString() 
+      // If we are merging, preserve the newer timestamp or use the update's timestamp
+      updated_at: updates.updated_at || new Date().toISOString(),
+      // Ensure subtasks are merged correctly if present in updates
+      subtasks: updates.subtasks || t.subtasks
     } : t));
     
     return { tasks: newTasks };
@@ -112,7 +115,10 @@ export const useDashboardStore = create<DashboardState>((set, get) => ({
   addSubtaskOptimistic: (taskId, subtask) => set((state) => ({
     tasks: state.tasks.map((t) => (t.id === taskId ? {
       ...t,
-      subtasks: [...(t.subtasks || []), subtask]
+      // Prevent duplicates by checking if ID already exists
+      subtasks: t.subtasks?.some(st => st.id === subtask.id) 
+        ? t.subtasks 
+        : [...(t.subtasks || []), subtask]
     } : t))
   })),
 

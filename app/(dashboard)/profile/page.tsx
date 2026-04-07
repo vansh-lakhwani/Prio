@@ -3,13 +3,7 @@ import { redirect } from 'next/navigation'
 import { ProfileHeader } from '@/components/profile/ProfileHeader'
 import { PersonalInfo } from '@/components/profile/PersonalInfo'
 import { Preferences } from '@/components/profile/Preferences'
-import { NotificationSettings } from '@/components/profile/NotificationSettings'
-import { TaskPreferences } from '@/components/profile/TaskPreferences'
 import { Integrations } from '@/components/profile/Integrations'
-import { DataManagement } from '@/components/profile/DataManagement'
-import { AccountSecurity } from '@/components/profile/AccountSecurity'
-import { DangerZone } from '@/components/profile/DangerZone'
-import { motion } from 'framer-motion'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -39,7 +33,7 @@ export default async function ProfilePage() {
           Profile <span className="text-kinetic">& Settings</span>
         </h1>
         <p className="text-foreground/50 max-w-2xl text-lg font-medium">
-          Consolidated control center for your Prio experience. Manage your identity, preferences, and data in one place.
+          Consolidated control center for your Prio experience. Manage your identity, preferences, and connections.
         </p>
       </section>
 
@@ -47,23 +41,27 @@ export default async function ProfilePage() {
       <ProfileHeader user={user} profile={profile} />
 
       {/* Settings Grid */}
-      <div className="grid grid-cols-1 gap-12 pt-8">
-        <PersonalInfo user={user} profile={profile} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <Preferences user={user} profile={profile} />
-          <NotificationSettings user={user} profile={profile} />
+        {/* Core Identity */}
+        <div className="space-y-8">
+           <div className="flex items-center gap-3 mb-4 px-2">
+              <div className="w-1.5 h-6 bg-kinetic rounded-full" />
+              <h2 className="text-xl font-black font-display tracking-tight">Account & Identity</h2>
+           </div>
+           <PersonalInfo user={user} profile={profile} />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <TaskPreferences user={user} profile={profile} />
-          <Integrations user={user} profile={profile} />
+        {/* Experience & Sync */}
+        <div className="space-y-8">
+           <div className="flex items-center gap-3 mb-4 px-2">
+              <div className="w-1.5 h-6 bg-primary rounded-full" />
+              <h2 className="text-xl font-black font-display tracking-tight">Workflow & Connectivity</h2>
+           </div>
+           <Preferences user={user} profile={profile} />
+           <Integrations user={user} profile={profile} />
         </div>
 
-        <AccountSecurity user={user} profile={profile} />
-        <DataManagement user={user} profile={profile} />
-        
-        <DangerZone user={user} profile={profile} />
       </div>
 
       {/* Footer Branding */}
