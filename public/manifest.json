@@ -1,0 +1,34 @@
+{
+  "name": "Prio - Your Priorities Simplified",
+  "short_name": "Prio",
+  "description": "Simplify your task management with Prio's kinetic productivity system.",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "theme_color": "#10B981",
+  "background_color": "#0c1511",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "View Kanban",
+      "url": "/kanban",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Check Insights",
+      "url": "/insights",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
