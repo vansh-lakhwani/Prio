@@ -38,7 +38,10 @@ export const useAuthStore = create<AuthState>((set) => ({
       const { data: { user }, error: userError } = await supabase.auth.getUser();
       
       if (userError) {
-        console.warn("No active authenticated user:", userError.message);
+        // Only warn for unexpected errors, ignore the standard "Not logged in" error
+        if (userError.message !== "Auth session missing!") {
+          console.warn("No active authenticated user:", userError.message);
+        }
         set({ user: null, session: null, profile: null, isLoading: false });
         return;
       }
