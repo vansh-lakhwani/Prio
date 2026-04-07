@@ -22,7 +22,7 @@ export function CalendarClientWrapper({ initialTasks }: CalendarClientWrapperPro
   }, [initialTasks, setInitialData, initRealtime, cleanupRealtime]);
 
   return (
-    <div className="flex flex-col h-full w-full">
+    <div className="flex flex-col flex-1 h-full min-h-0">
       <CalendarView />
     </div>
   );

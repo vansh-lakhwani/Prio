@@ -54,7 +54,7 @@ export function DashboardClient({ userId, initialTasks, initialStats, initialAct
 
   return (
     <>
-      <div className="flex flex-col gap-8 lg:gap-12 pb-20">
+      <div className="flex flex-col gap-8 lg:gap-10 h-full">
         {/* Header Section */}
         <section className="space-y-8">
           <WelcomeCard />

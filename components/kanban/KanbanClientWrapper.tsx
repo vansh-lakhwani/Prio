@@ -25,7 +25,7 @@ export function KanbanClientWrapper({ initialTasks }: KanbanClientWrapperProps) 
   }, [initialTasks, setInitialData, initRealtime, cleanupRealtime]);
 
   return (
-    <div className="flex flex-col h-full overflow-hidden">
+    <div className="flex flex-col flex-1 h-full min-h-0 overflow-hidden">
       
       {/* Top Banner & Filters */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">

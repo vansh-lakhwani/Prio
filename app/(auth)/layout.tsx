@@ -1,4 +1,4 @@
-﻿import { ReactNode } from "react";
+import { ReactNode } from "react";
 import { CheckCircle2, Layout, Zap, Shield } from "lucide-react";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
@@ -27,7 +27,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
             <h1 className="text-5xl font-space-grotesk font-black mb-6 leading-[1.1] tracking-tighter">
               Manage workflows with <span className="text-transparent bg-clip-text verdant-gradient">kinetic clarity.</span>
             </h1>
-            <p className="text-lg text-foreground/70 font-manrope font-medium leading-relaxed">
+            <p className="text-lg text-foreground opacity-80 font-manrope font-medium leading-relaxed">
               Join thousands of professionals organizing their life and work inside an ecosystem designed for focus.
             </p>
           </div>

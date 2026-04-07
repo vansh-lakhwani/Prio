@@ -148,7 +148,7 @@ export function InsightsClient({ initialTasks, initialStats, initialActivity }: 
   }
 
   return (
-    <div className="flex flex-col gap-10 max-w-[1600px] mx-auto w-full pb-24 px-4 sm:px-6 lg:px-8 mt-10">
+    <div className="flex flex-col gap-10 h-full">
       <InsightsHeader 
         range={range} 
         onRangeChange={setRange} 

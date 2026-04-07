@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Space_Grotesk, Manrope } from "next/font/google";
 import "./globals.css";
 import { FramerProvider } from "@/components/FramerProvider";
@@ -29,9 +29,13 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`h-full antialiased ${spaceGrotesk.variable} ${manrope.variable}`}
     >
-      <body className="min-h-full flex flex-col bg-[#0c1511] text-[#dbe5de] font-sans overflow-x-hidden">
+      <body 
+        className="min-h-full flex flex-col bg-[#0c1511] text-[#dbe5de] font-sans overflow-x-hidden"
+        suppressHydrationWarning
+      >
         <FramerProvider>
           <ErrorBoundary>
             <ShortcutProvider>
