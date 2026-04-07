@@ -14,6 +14,7 @@ export function useKeyboardShortcuts() {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Ignore if focus is in an input or textarea
       if (
+        !e.key || // Add defensive check for undefined key property
         document.activeElement?.tagName === "INPUT" ||
         document.activeElement?.tagName === "TEXTAREA" ||
         (document.activeElement as HTMLElement)?.isContentEditable
