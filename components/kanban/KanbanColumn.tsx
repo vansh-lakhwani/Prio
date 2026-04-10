@@ -16,10 +16,10 @@ const COLUMN_STYLES: Record<TaskStatus, {
   emptyText: string;
   emptyIcon: string;
 }> = {
-  todo:        { gradient: "from-slate-600/20 to-slate-700/10",   dot: "bg-slate-400",   glow: "rgba(148,163,184,0.15)", border: "border-slate-500/15",   badge: "bg-slate-500/15 text-slate-300", emptyText: "Drop tasks here",     emptyIcon: "📋" },
-  in_progress: { gradient: "from-violet-600/20 to-indigo-700/10", dot: "bg-violet-500",  glow: "rgba(129,140,248,0.2)",  border: "border-violet-500/20",  badge: "bg-violet-500/15 text-violet-300", emptyText: "Nothing in flight",  emptyIcon: "⚡" },
-  done:        { gradient: "from-emerald-600/20 to-teal-700/10",  dot: "bg-emerald-500", glow: "rgba(52,211,153,0.2)",   border: "border-emerald-500/20", badge: "bg-emerald-500/15 text-emerald-300", emptyText: "No wins yet",     emptyIcon: "🏆" },
-  review:      { gradient: "from-amber-600/20 to-orange-700/10",  dot: "bg-amber-500",   glow: "rgba(251,191,36,0.2)",   border: "border-amber-500/20",   badge: "bg-amber-500/15 text-amber-300",   emptyText: "Nothing to review", emptyIcon: "👀" },
+  todo:        { gradient: "from-foreground/10 to-transparent",   dot: "bg-foreground/40",   glow: "rgba(255,255,255,0.05)", border: "border-white/5",   badge: "bg-white/5 text-foreground/40", emptyText: "Drop tasks here",     emptyIcon: "📋" },
+  in_progress: { gradient: "from-primary/20 to-transparent",        dot: "bg-primary",   glow: "rgba(var(--primary-rgb),0.2)",  border: "border-primary/20",  badge: "bg-primary/15 text-primary", emptyText: "Nothing in flight",  emptyIcon: "⚡" },
+  done:        { gradient: "from-primary/30 to-transparent",        dot: "bg-primary font-black", glow: "rgba(var(--primary-rgb),0.3)",   border: "border-primary/30", badge: "bg-primary/20 text-primary", emptyText: "No wins yet",     emptyIcon: "🏆" },
+  review:      { gradient: "from-orange-500/20 to-transparent",    dot: "bg-orange-400",   glow: "rgba(251,146,60,0.2)",   border: "border-orange-500/20",   badge: "bg-orange-500/15 text-orange-300",   emptyText: "Nothing to review", emptyIcon: "👀" },
 };
 
 interface KanbanColumnProps {
@@ -47,9 +47,9 @@ export function KanbanColumn({ status, title, tasks, totalByStatus }: KanbanColu
       className={`flex flex-col rounded-3xl border ${s.border} transition-all duration-300 overflow-hidden`}
       style={{
         background: isOver
-          ? `linear-gradient(160deg, ${s.glow} 0%, rgba(17,24,41,0.9) 100%)`
-          : "rgba(17,24,41,0.7)",
-        boxShadow: isOver ? `0 0 0 2px ${s.glow}, 0 16px 48px ${s.glow}` : "0 4px 24px rgba(0,0,0,0.3)",
+          ? `linear-gradient(160deg, ${s.glow} 0%, rgba(6,11,9,0.9) 100%)`
+          : "rgba(6,11,9,0.7)",
+        boxShadow: isOver ? `0 0 0 2px ${s.glow}, 0 24px 64px rgba(0,0,0,0.6)` : "0 4px 32px rgba(0,0,0,0.4)",
         backdropFilter: "blur(24px)",
         minHeight: "100%",
       }}
@@ -76,11 +76,11 @@ export function KanbanColumn({ status, title, tasks, totalByStatus }: KanbanColu
           <div className="mt-1">
             <div className="flex items-center justify-between mb-1.5">
               <span className="text-[9px] font-black uppercase tracking-widest text-foreground/30">Board Progress</span>
-              <span className="text-[9px] font-black text-emerald-400/70">{completedPct}%</span>
+              <span className="text-[9px] font-black text-primary/70">{completedPct}%</span>
             </div>
             <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
               <motion.div
-                className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full"
+                className="h-full bg-gradient-to-r from-primary to-primary/40 rounded-full"
                 initial={{ width: "0%" }}
                 animate={{ width: `${completedPct}%` }}
                 transition={{ duration: 1.2, ease: "easeOut" }}
@@ -92,8 +92,8 @@ export function KanbanColumn({ status, title, tasks, totalByStatus }: KanbanColu
         {/* In-progress indicator */}
         {status === "in_progress" && tasks.length > 0 && (
           <div className="flex items-center gap-1.5 mt-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-pulse" />
-            <span className="text-[9px] font-black uppercase tracking-widest text-violet-400/50">Active sprint</span>
+            <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+            <span className="text-[9px] font-black uppercase tracking-widest text-primary/50">Active sprint</span>
           </div>
         )}
       </div>

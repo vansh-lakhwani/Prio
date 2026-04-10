@@ -4,7 +4,7 @@ import { useDashboardStore } from "@/stores/dashboardStore";
 import { CheckCircle2, Calendar, ListTree, LayoutGrid } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { isToday } from "date-fns";
+import { isToday, isPast } from "date-fns";
 
 function CountUp({ to, duration = 1.2 }: { to: number; duration?: number }) {
   const [display, setDisplay] = useState(0);
@@ -30,52 +30,52 @@ function CountUp({ to, duration = 1.2 }: { to: number; duration?: number }) {
 
 const stats = [
   {
-    key:     "completed",
-    title:   "Completed",
-    sub:     "Tasks done",
-    icon:    CheckCircle2,
+    key: "completed",
+    title: "Completed",
+    sub: "Tasks done",
+    icon: CheckCircle2,
     gradient: "from-emerald-500 to-teal-400",
-    glow:    "rgba(52,211,153,0.25)",
-    ring:    "ring-emerald-500/20",
-    text:    "text-emerald-400",
-    bg:      "bg-emerald-500/10",
-    border:  "border-emerald-500/20",
+    glow: "rgba(52,211,153,0.15)",
+    ring: "ring-emerald-500/20",
+    text: "text-emerald-400",
+    bg: "bg-emerald-500/10",
+    border: "border-emerald-500/20",
   },
   {
-    key:     "today",
-    title:   "Due Today",
-    sub:     "Need attention",
-    icon:    Calendar,
+    key: "today",
+    title: "Due Today",
+    sub: "Need attention",
+    icon: Calendar,
     gradient: "from-amber-500 to-orange-400",
-    glow:    "rgba(251,191,36,0.25)",
-    ring:    "ring-amber-500/20",
-    text:    "text-amber-400",
-    bg:      "bg-amber-500/10",
-    border:  "border-amber-500/20",
+    glow: "rgba(251,191,36,0.15)",
+    ring: "ring-amber-500/20",
+    text: "text-amber-400",
+    bg: "bg-amber-500/10",
+    border: "border-amber-500/20",
   },
   {
-    key:     "subtasks",
-    title:   "Subtasks",
-    sub:     "Open items",
-    icon:    ListTree,
+    key: "subtasks",
+    title: "Subtasks",
+    sub: "Open items",
+    icon: ListTree,
     gradient: "from-violet-500 to-indigo-400",
-    glow:    "rgba(129,140,248,0.25)",
-    ring:    "ring-violet-500/20",
-    text:    "text-violet-400",
-    bg:      "bg-violet-500/10",
-    border:  "border-violet-500/20",
+    glow: "rgba(129,140,248,0.15)",
+    ring: "ring-violet-500/20",
+    text: "text-violet-400",
+    bg: "bg-violet-500/10",
+    border: "border-violet-500/20",
   },
   {
-    key:     "tasks",
-    title:   "Active Tasks",
-    sub:     "In progress",
-    icon:    LayoutGrid,
+    key: "tasks",
+    title: "Active Tasks",
+    sub: "In progress",
+    icon: LayoutGrid,
     gradient: "from-rose-500 to-pink-400",
-    glow:    "rgba(251,113,133,0.25)",
-    ring:    "ring-rose-500/20",
-    text:    "text-rose-400",
-    bg:      "bg-rose-500/10",
-    border:  "border-rose-500/20",
+    glow: "rgba(251,113,133,0.15)",
+    ring: "ring-rose-500/20",
+    text: "text-rose-400",
+    bg: "bg-rose-500/10",
+    border: "border-rose-500/20",
   },
 ];
 
@@ -84,10 +84,14 @@ export function QuickStats() {
 
   const values: Record<string, number> = {
     completed: tasks.filter(t => t.status === "done").length,
-    today: tasks.filter(t => {
-      if (t.status === "done") return false;
-      return t.due_date ? isToday(new Date(t.due_date)) : false;
-    }).length,
+    today: tasks.reduce((acc, t) => {
+      if (t.status === "done") return acc;
+      const due = t.due_date ? new Date(t.due_date) : null;
+      let count = 0;
+      if (due && (isToday(due) || isPast(due))) count++;
+      count += (t.subtasks?.filter(s => !s.completed).length ?? 0);
+      return acc + count;
+    }, 0),
     subtasks: tasks.reduce((acc, t) => {
       if (t.status === "done") return acc;
       return acc + (t.subtasks?.filter(s => !s.completed).length ?? 0);

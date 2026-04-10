@@ -90,15 +90,15 @@ export function ProfileHeader({ user, profile }: ProfileHeaderProps) {
       className="bg-surface/40 backdrop-blur-xl border border-outline/10 rounded-[2.5rem] p-8 sm:p-12 shadow-2xl overflow-hidden relative group"
     >
       {/* Dynamic Background Accents */}
-      <div className="absolute -top-24 -right-24 w-96 h-96 bg-kinetic/10 blur-[100px] -z-10 rounded-full animate-pulse" />
-      <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-primary/5 blur-[80px] -z-10 rounded-full" />
+      <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 blur-[100px] -z-10 rounded-full animate-pulse" />
+      <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-secondary/5 blur-[80px] -z-10 rounded-full" />
       
       <div className="flex flex-col lg:flex-row items-center lg:items-end gap-10">
         {/* Avatar Section */}
         <div className="relative">
           <motion.div 
             whileHover={{ scale: 1.05 }}
-            className="relative h-40 w-40 rounded-[3rem] overflow-hidden border-4 border-background shadow-2xl bg-gradient-to-br from-kinetic to-verdant-primary p-1"
+            className="relative h-40 w-40 rounded-[3rem] overflow-hidden border-4 border-background shadow-2xl bg-gradient-to-br from-primary to-secondary p-1"
           >
             <div className="relative w-full h-full rounded-[2.8rem] overflow-hidden bg-background">
               {profile?.avatar_url ? (
@@ -117,18 +117,18 @@ export function ProfileHeader({ user, profile }: ProfileHeaderProps) {
             
             {(uploading || isLoggingOut) && (
               <div className="absolute inset-0 bg-black/60 flex items-center justify-center backdrop-blur-sm z-20">
-                <Loader2 className="w-10 h-10 text-kinetic animate-spin" />
+                <Loader2 className="w-10 h-10 text-primary animate-spin" />
               </div>
             )}
           </motion.div>
 
           {/* Premium Tooltip-like Badge */}
-          <div className="absolute -top-3 -right-3 bg-kinetic text-background px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl border-2 border-background flex items-center gap-1.5 z-10 scale-110">
+          <div className="absolute -top-3 -right-3 bg-primary text-surface-lowest px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl border-2 border-background flex items-center gap-1.5 z-10 scale-110">
             <Zap className="w-3 h-3 fill-current" />
             <span>Pro Tier</span>
           </div>
 
-          <label className="absolute -bottom-2 -right-2 p-3 bg-surface-highest text-foreground rounded-2xl shadow-xl cursor-pointer hover:bg-kinetic hover:text-background transition-all active:scale-95 border border-outline/10 group-hover:scale-110">
+          <label className="absolute -bottom-2 -right-2 p-3 bg-surface-lowest text-foreground rounded-2xl shadow-xl cursor-pointer hover:bg-primary hover:text-surface-lowest transition-all active:scale-95 border border-outline-variant/10 group-hover:scale-110">
             <Camera className="h-5 w-5" />
             <input
               type="file"
@@ -148,7 +148,7 @@ export function ProfileHeader({ user, profile }: ProfileHeaderProps) {
                 {profile?.full_name || 'Anonymous Explorer'}
               </h2>
               {profile?.username && (
-                <span className="text-kinetic font-black font-space-grotesk text-lg opacity-80 italic lowercase tracking-tight">
+                <span className="text-secondary font-black font-space-grotesk text-lg opacity-80 italic lowercase tracking-tight">
                   @{profile.username}
                 </span>
               )}
@@ -160,8 +160,8 @@ export function ProfileHeader({ user, profile }: ProfileHeaderProps) {
           
           <div className="flex flex-wrap justify-center lg:justify-start gap-4">
             {/* Security Score Capsule */}
-            <div className="flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-surface-low border border-outline/5 shadow-inner">
-              <ShieldCheck className={`w-5 h-5 ${securityScore > 80 ? 'text-kinetic' : 'text-amber-500'}`} />
+            <div className="flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-surface-standard/50 border border-outline-variant/5 shadow-inner">
+              <ShieldCheck className={`w-5 h-5 ${securityScore > 80 ? 'text-primary' : 'text-orange-400'}`} />
               <div className="flex flex-col text-left">
                 <span className="text-[10px] font-black uppercase tracking-widest text-foreground/20 leading-none mb-1">Security Score</span>
                 <span className="text-sm font-black font-display text-foreground leading-none">{securityScore}% &bull; Solid</span>
@@ -169,11 +169,11 @@ export function ProfileHeader({ user, profile }: ProfileHeaderProps) {
             </div>
 
             {/* Account Tier Capsule */}
-            <div className="flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-kinetic/5 border border-kinetic/10 shadow-inner">
-              <Award className="w-5 h-5 text-kinetic" />
+            <div className="flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-primary/5 border border-primary/10 shadow-inner">
+              <Award className="w-5 h-5 text-primary" />
               <div className="flex flex-col text-left">
-                <span className="text-[10px] font-black uppercase tracking-widest text-kinetic/40 leading-none mb-1">Impact Level</span>
-                <span className="text-sm font-black font-display text-kinetic leading-none">Prio Vanguard</span>
+                <span className="text-[10px] font-black uppercase tracking-widest text-primary/40 leading-none mb-1">Impact Level</span>
+                <span className="text-sm font-black font-display text-primary leading-none">Prio Vanguard</span>
               </div>
             </div>
 
@@ -202,13 +202,13 @@ export function ProfileHeader({ user, profile }: ProfileHeaderProps) {
            <div className="hidden xl:flex flex-col items-end gap-3 w-full">
               <div className="flex items-center gap-2">
                  <span className="text-[10px] font-black uppercase tracking-widest text-foreground/20">Operational Integrity</span>
-                 <CheckCircle2 className="w-3 h-3 text-kinetic" />
+                 <CheckCircle2 className="w-3 h-3 text-primary" />
               </div>
-              <div className="w-full h-1.5 bg-surface-highest rounded-full overflow-hidden">
+              <div className="w-full h-1.5 bg-surface-standard/50 rounded-full overflow-hidden">
                  <motion.div 
                    initial={{ width: 0 }}
                    animate={{ width: `${securityScore}%` }}
-                   className="h-full bg-kinetic shadow-[0_0_8px_rgba(16,185,129,0.5)]"
+                   className="h-full bg-primary shadow-[0_0_8px_rgba(var(--primary-rgb),0.5)]"
                  />
               </div>
               <p className="text-[10px] font-black font-display text-foreground/10 tracking-widest">ENCRYPTED END-TO-END</p>

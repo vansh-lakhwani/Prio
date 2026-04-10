@@ -9,37 +9,37 @@ const PRIORITY_CONFIG = [
     label:    "High Priority",
     sub:      "Critical cycles",
     icon:     Flame,
-    gradient: "from-rose-500 to-pink-500",
-    bar:      "from-rose-500 to-pink-400",
-    glow:     "rgba(251,113,133,0.4)",
-    text:     "text-rose-400",
-    bg:       "bg-rose-500/10",
-    border:   "border-rose-500/20",
-    badge:    "bg-rose-500/15 text-rose-400",
+    gradient: "from-red-400 to-red-500",
+    bar:      "from-red-400 to-red-500",
+    glow:     "rgba(248,113,113,0.3)",
+    text:     "text-red-400",
+    bg:       "bg-red-400/10",
+    border:   "border-red-400/20",
+    badge:    "bg-red-400/15 text-red-400",
   },
   {
     label:    "Standard",
     sub:      "Active work",
     icon:     Zap,
-    gradient: "from-amber-500 to-orange-400",
-    bar:      "from-amber-500 to-orange-400",
-    glow:     "rgba(251,191,36,0.4)",
-    text:     "text-amber-400",
-    bg:       "bg-amber-500/10",
-    border:   "border-amber-500/20",
-    badge:    "bg-amber-500/15 text-amber-400",
+    gradient: "from-orange-400 to-orange-500",
+    bar:      "from-orange-400 to-orange-500",
+    glow:     "rgba(251,146,60,0.3)",
+    text:     "text-orange-400",
+    bg:       "bg-orange-400/10",
+    border:   "border-orange-400/20",
+    badge:    "bg-orange-400/15 text-orange-400",
   },
   {
     label:    "Routine",
     sub:      "Background tasks",
     icon:     Leaf,
-    gradient: "from-emerald-500 to-teal-400",
-    bar:      "from-emerald-500 to-teal-400",
-    glow:     "rgba(52,211,153,0.4)",
-    text:     "text-emerald-400",
-    bg:       "bg-emerald-500/10",
-    border:   "border-emerald-500/20",
-    badge:    "bg-emerald-500/15 text-emerald-400",
+    gradient: "from-primary/60 to-primary",
+    bar:      "from-primary/60 to-primary",
+    glow:     "rgba(var(--primary-rgb),0.3)",
+    text:     "text-primary",
+    bg:       "bg-primary/10",
+    border:   "border-primary/20",
+    badge:    "bg-primary/15 text-primary",
   },
 ];
 
@@ -68,14 +68,14 @@ export function PriorityPulse() {
   return (
     <div className="bg-surface-standard rounded-3xl p-6 ring-1 ring-white/5 relative overflow-hidden">
       {/* Ambient background */}
-      <div className="absolute -top-16 -right-16 w-48 h-48 bg-violet-600/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-12 -left-12 w-40 h-40 bg-indigo-600/8 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -top-16 -right-16 w-48 h-48 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-12 -left-12 w-40 h-40 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
       {/* Header */}
       <div className="relative flex items-center justify-between mb-6">
         <div>
           <div className="flex items-center gap-2 mb-0.5">
-            <div className="p-2 rounded-xl bg-violet-500/10 text-violet-400">
+            <div className="p-2 rounded-xl bg-primary/10 text-primary">
               <Target className="w-4 h-4" />
             </div>
             <h2 className="text-lg font-black font-display tracking-tight text-foreground">Priority Pulse</h2>
@@ -137,7 +137,7 @@ export function PriorityPulse() {
       {/* Bottom note */}
       <div className="mt-5 pt-4 border-t border-white/5">
         <p className="text-[9px] font-bold text-foreground/20 uppercase tracking-[0.2em] leading-relaxed">
-          Focus on <span className="text-rose-400/60">High Priority</span> cycles to maintain architecture stability.
+          Focus on <span className="text-red-400/60 font-black">High Priority</span> cycles to maintain architecture stability.
         </p>
       </div>
     </div>

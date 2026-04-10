@@ -10,9 +10,9 @@ interface PrioritySelectorProps {
 }
 
 const priorities: { id: TaskPriority; label: string; color: string; bg: string }[] = [
-  { id: "high", label: "High", color: "bg-primary", bg: "hover:bg-primary/10 data-[selected=true]:bg-primary data-[selected=true]:text-surface-lowest" },
-  { id: "medium", label: "Medium", color: "bg-primary-container", bg: "hover:bg-primary/5 data-[selected=true]:bg-primary-container data-[selected=true]:text-primary" },
-  { id: "low", label: "Low", color: "bg-secondary-container", bg: "hover:bg-primary/5 data-[selected=true]:bg-secondary-container data-[selected=true]:text-primary/70" },
+  { id: "high", label: "High", color: "bg-accent-warning", bg: "hover:bg-accent-warning/10 data-[selected=true]:bg-accent-warning data-[selected=true]:text-surface-lowest" },
+  { id: "medium", label: "Medium", color: "bg-accent-earth", bg: "hover:bg-accent-earth/10 data-[selected=true]:bg-accent-earth data-[selected=true]:text-surface-lowest" },
+  { id: "low", label: "Low", color: "bg-primary/20", bg: "hover:bg-primary/10 data-[selected=true]:bg-primary data-[selected=true]:text-surface-lowest" },
   { id: "none", label: "None", color: "bg-surface-highest", bg: "hover:bg-surface-highest/50 data-[selected=true]:bg-surface-highest data-[selected=true]:text-foreground/60" },
 ];
 

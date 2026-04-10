@@ -1,7 +1,8 @@
-﻿"use client";
+"use client";
 
 import { useAuth } from "@/lib/hooks/useAuth";
 import { Bell, Search, Menu, X, CheckCircle2 } from "lucide-react";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 export function TopBar() {
@@ -32,8 +33,8 @@ export function TopBar() {
           >
             <Menu className="w-6 h-6" />
           </button>
-          <div className="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20">
-            <CheckCircle2 className="w-6 h-6 text-surface-lowest" />
+          <div className="w-10 h-10 rounded-xl relative flex items-center justify-center overflow-hidden shadow-ambient">
+            <Image src="/icon.png" alt="Prio Logo" fill className="object-cover" />
           </div>
         </div>
 
@@ -77,10 +78,10 @@ export function TopBar() {
           <div className="w-4/5 max-w-sm h-full bg-surface border-r border-outline relative flex flex-col z-10 animate-in slide-in-from-left duration-300">
             <div className="p-6 border-b border-outline/10 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl verdant-gradient flex items-center justify-center">
-                  <CheckCircle2 className="w-6 h-6 text-surface" />
+                <div className="w-10 h-10 rounded-xl relative flex items-center justify-center overflow-hidden">
+                  <Image src="/icon.png" alt="Prio Logo" fill className="object-cover" />
                 </div>
-                <span className="text-2xl font-bold font-space-grotesk tracking-tight">Prio</span>
+                <span className="text-2xl font-black font-display tracking-tight text-foreground">Prio</span>
               </div>
               <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 text-foreground/50 hover:text-foreground">
                 <X className="w-6 h-6" />
@@ -88,11 +89,11 @@ export function TopBar() {
             </div>
             {/* Mobile Nav Links Container */}
             <div className="p-4 flex flex-col gap-2 flex-1">
-              <Link href="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 bg-verdant-primary/10 text-kinetic font-bold rounded-xl">Dashboard</Link>
-              <Link href="/kanban" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-foreground/70 font-semibold rounded-xl hover:bg-[#18221d]/5">Kanban</Link>
-              <Link href="/calendar" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-foreground/70 font-semibold rounded-xl hover:bg-[#18221d]/5">Calendar</Link>
-              <Link href="/insights" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-foreground/70 font-semibold rounded-xl hover:bg-[#18221d]/5">Insights</Link>
-              <Link href="/profile" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-foreground/70 font-semibold rounded-xl hover:bg-[#18221d]/5">Profile</Link>
+              <Link href="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 bg-primary/10 text-primary font-bold rounded-xl">Dashboard</Link>
+              <Link href="/kanban" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-foreground/70 font-semibold rounded-xl hover:bg-primary/5">Kanban</Link>
+              <Link href="/calendar" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-foreground/70 font-semibold rounded-xl hover:bg-primary/5">Calendar</Link>
+              <Link href="/insights" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-foreground/70 font-semibold rounded-xl hover:bg-primary/5">Insights</Link>
+              <Link href="/profile" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-3 text-foreground/70 font-semibold rounded-xl hover:bg-primary/5">Profile</Link>
             </div>
           </div>
         </div>

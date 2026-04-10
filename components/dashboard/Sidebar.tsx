@@ -13,6 +13,7 @@ import {
   ChevronRight,
   LogOut
 } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import { useAuth } from "@/lib/hooks/useAuth";
 import { motion, AnimatePresence } from "framer-motion";
@@ -48,14 +49,14 @@ export function Sidebar() {
     >
       {/* Brand */}
       <div className={`p-8 flex items-center ${isCollapsed ? 'justify-center px-0' : 'gap-4'} mb-8`}>
-        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-primary-container flex-shrink-0 flex items-center justify-center shadow-lg shadow-primary/10">
-          <CheckCircle2 className="w-7 h-7 text-surface-lowest" />
+        <div className="w-12 h-12 rounded-2xl relative flex-shrink-0 flex items-center justify-center overflow-hidden shadow-ambient">
+          <Image src="/icon.png" alt="Prio Logo" fill className="object-cover" />
         </div>
         {!isCollapsed && (
           <motion.span 
             initial={{ opacity: 0, x: -10 }} 
             animate={{ opacity: 1, x: 0 }} 
-            className="text-3xl font-bold font-display tracking-tight text-foreground"
+            className="text-3xl font-black font-display tracking-tight text-foreground"
           >
             Prio
           </motion.span>
@@ -78,9 +79,9 @@ export function Sidebar() {
             <Link key={item.href} href={item.href} className="block relative focus:outline-none group">
               <div className={`
                 flex items-center ${isCollapsed ? 'justify-center' : 'gap-4 px-5'} py-4 rounded-2xl transition-all duration-300
-                ${isActive ? 'bg-primary-container/10 text-primary' : 'text-foreground/60 hover:bg-surface-highest hover:text-foreground'}
+                ${isActive ? 'bg-primary/10 text-primary shadow-sm' : 'text-foreground/35 hover:bg-surface-standard hover:text-foreground'}
               `}>
-                <item.icon className={`w-6 h-6 flex-shrink-0 transition-transform duration-300 group-hover:scale-110 ${isActive ? 'text-primary' : ''}`} />
+                <item.icon className={`w-5 h-5 flex-shrink-0 transition-transform duration-300 group-hover:scale-110 ${isActive ? 'text-primary' : ''}`} />
                 {!isCollapsed && <span className="font-bold font-sans tracking-tight">{item.label}</span>}
                 {isActive && (
                   <motion.div 
@@ -96,10 +97,10 @@ export function Sidebar() {
       </nav>
 
       {/* Bottom Area (Profile) */}
-      <div className="p-6 bg-surface-standard/30 flex flex-col gap-6">
+      <div className="p-6 bg-surface-lowest/50 border-t border-outline-variant/5 flex flex-col gap-6">
         {/* Profile Card / Avatar */}
-        <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'gap-4 px-4 py-3 bg-surface-highest rounded-2xl transition-all hover:bg-surface-bright shadow-sm relative group/profile'}`}>
-          <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-primary to-primary-container flex-shrink-0 flex items-center justify-center text-surface-lowest font-bold capitalize">
+        <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'gap-4 px-4 py-3 bg-surface-standard rounded-2xl transition-all hover:bg-surface-high border border-outline-variant/5 shadow-sm relative group/profile'}`}>
+          <div className="w-10 h-10 rounded-2xl gradient-primary-verdant flex-shrink-0 flex items-center justify-center text-background font-black font-display text-sm">
             {profile?.full_name?.charAt(0) || profile?.email?.charAt(0) || 'U'}
           </div>
           {!isCollapsed && (
@@ -113,7 +114,7 @@ export function Sidebar() {
           {!isCollapsed && (
             <button 
               onClick={handleLogout}
-              className="p-2 text-foreground/20 hover:text-danger-standard hover:bg-danger-standard/10 rounded-xl transition-all duration-300"
+              className="p-2 text-foreground/20 hover:text-accent-warning hover:bg-accent-warning/10 rounded-xl transition-all duration-300"
               title="Logout"
             >
               <LogOut className="w-5 h-5" />
@@ -125,7 +126,7 @@ export function Sidebar() {
         {isCollapsed && (
           <button 
             onClick={handleLogout}
-            className="flex items-center justify-center py-4 text-foreground/20 hover:text-danger-standard hover:bg-danger-standard/10 rounded-2xl transition-all duration-300"
+            className="flex items-center justify-center py-4 text-foreground/20 hover:text-accent-warning hover:bg-accent-warning/10 rounded-2xl transition-all duration-300"
             title="Logout"
           >
             <LogOut className="w-6 h-6" />

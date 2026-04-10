@@ -6,10 +6,10 @@ import { CheckCircle2, Edit3, PlusCircle, Trash2, Activity } from "lucide-react"
 import { motion } from "framer-motion";
 
 const actionIcons = {
-  created: { icon: PlusCircle, color: "text-blue-500", bg: "bg-blue-500/10" },
-  updated: { icon: Edit3, color: "text-amber-500", bg: "bg-amber-500/10" },
-  completed: { icon: CheckCircle2, color: "text-verdant-primary", bg: "bg-verdant-primary/10" },
-  deleted: { icon: Trash2, color: "text-red-500", bg: "bg-red-500/10" }
+  created: { icon: PlusCircle, color: "text-primary", bg: "bg-primary/10" },
+  updated: { icon: Edit3, color: "text-accent-earth", bg: "bg-accent-earth/10" },
+  completed: { icon: CheckCircle2, color: "text-primary", bg: "bg-primary/10" },
+  deleted: { icon: Trash2, color: "text-accent-warning", bg: "bg-accent-warning/10" }
 };
 
 export function RecentActivity() {

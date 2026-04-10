@@ -254,19 +254,19 @@ export function TaskModal({ isOpen, onClose, taskId, userId }: TaskModalProps) {
 
   const getPriorityColor = (p: TaskPriority) => {
     switch (p) {
-      case 'high': return 'bg-red-500/20 text-red-400'
-      case 'medium': return 'bg-orange-500/20 text-orange-400'
-      case 'low': return 'bg-blue-500/20 text-blue-400'
-      default: return 'bg-white/5 text-gray-400'
+      case 'high': return 'bg-red-400/10 text-red-400 border border-red-400/20 shadow-[0_0_20px_rgba(248,113,113,0.05)]'
+      case 'medium': return 'bg-orange-400/10 text-orange-400 border border-orange-400/20 shadow-[0_0_20px_rgba(251,146,60,0.05)]'
+      case 'low': return 'bg-primary/10 text-primary border border-primary/20 shadow-[0_0_20px_rgba(var(--primary-rgb),0.05)]'
+      default: return 'bg-foreground/5 text-foreground/30 border border-foreground/10'
     }
   }
 
   const getPriorityDot = (p: TaskPriority) => {
     switch (p) {
-      case 'high': return 'bg-red-500'
-      case 'medium': return 'bg-orange-500'
-      case 'low': return 'bg-blue-500'
-      default: return 'bg-gray-500'
+      case 'high': return 'bg-red-400'
+      case 'medium': return 'bg-orange-400'
+      case 'low': return 'bg-primary'
+      default: return 'bg-foreground/20'
     }
   }
 
@@ -287,7 +287,7 @@ export function TaskModal({ isOpen, onClose, taskId, userId }: TaskModalProps) {
           initial={{ opacity: 0, y: 20, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.98 }}
-          className="relative bg-[#0c1511] border border-white/5 rounded-[2.5rem] shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col"
+          className="relative bg-surface border border-outline/5 rounded-[2.5rem] shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col"
         >
           {/* Header */}
           <div className="flex items-center justify-between px-8 py-6 bg-white/[0.02]">
@@ -299,8 +299,8 @@ export function TaskModal({ isOpen, onClose, taskId, userId }: TaskModalProps) {
                 <h2 className="text-xl font-black text-foreground tracking-tight">
                   {taskId ? 'Modify Cycle' : 'Initialize Task'}
                 </h2>
-                <p className="text-xs text-foreground/40 font-bold uppercase tracking-widest">
-                  {taskId ? 'System ID: ' + taskId.slice(0, 8) : 'New Kinetic Entry'}
+                <p className="text-[10px] text-foreground/40 font-black uppercase tracking-[0.2em]">
+                  {taskId ? 'System ID: ' + taskId.slice(0, 8) : 'New Botanical Entry'}
                 </p>
               </div>
             </div>
@@ -325,7 +325,7 @@ export function TaskModal({ isOpen, onClose, taskId, userId }: TaskModalProps) {
                       value={formData.title}
                       onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                       placeholder="Define the primary objective..."
-                      className="w-full bg-white/[0.03] border-none rounded-3xl px-6 py-4 text-xl font-bold text-foreground placeholder:text-white/10 focus:ring-2 focus:ring-primary/20 transition-all"
+                      className="w-full bg-surface-standard/50 border-none rounded-3xl px-6 py-5 text-xl font-bold text-foreground placeholder:text-foreground/10 focus:ring-2 focus:ring-primary/20 transition-all shadow-inner"
                       autoFocus
                       required
                     />
@@ -338,7 +338,7 @@ export function TaskModal({ isOpen, onClose, taskId, userId }: TaskModalProps) {
                       onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                       placeholder="Deconstruct the task requirements here..."
                       rows={4}
-                      className="w-full bg-white/[0.03] border-none rounded-3xl px-6 py-4 text-foreground placeholder:text-white/10 focus:ring-2 focus:ring-primary/20 transition-all resize-none"
+                      className="w-full bg-surface-standard/50 border-none rounded-3xl px-6 py-5 text-foreground placeholder:text-foreground/10 focus:ring-2 focus:ring-primary/20 transition-all resize-none shadow-inner"
                     />
                   </div>
                 </section>
@@ -352,7 +352,7 @@ export function TaskModal({ isOpen, onClose, taskId, userId }: TaskModalProps) {
                         type="date"
                         value={formData.due_date}
                         onChange={(e) => setFormData({ ...formData, due_date: e.target.value })}
-                        className="w-full bg-white/[0.03] border-none rounded-2xl pl-12 pr-4 py-3.5 text-sm font-bold text-foreground focus:ring-2 focus:ring-primary/20 transition-all appearance-none"
+                        className="w-full bg-surface-standard/50 border-none rounded-2xl pl-12 pr-4 py-4 text-sm font-bold text-foreground focus:ring-2 focus:ring-primary/20 transition-all appearance-none shadow-inner"
                       />
                     </div>
                   </div>
@@ -367,8 +367,8 @@ export function TaskModal({ isOpen, onClose, taskId, userId }: TaskModalProps) {
                           onClick={() => setFormData({ ...formData, priority: p })}
                           className={`flex-1 py-3 px-2 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${
                             formData.priority === p 
-                              ? getPriorityColor(p) + ' scale-105 shadow-lg' 
-                              : 'bg-white/5 text-foreground/20 hover:bg-white/10'
+                              ? getPriorityColor(p) + ' scale-[1.02]' 
+                              : 'bg-surface-standard text-foreground/20 hover:bg-surface-standard/80 border border-outline/5'
                           }`}
                         >
                           {p}
@@ -388,8 +388,8 @@ export function TaskModal({ isOpen, onClose, taskId, userId }: TaskModalProps) {
                         onClick={() => setFormData({ ...formData, status: s })}
                         className={`py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${
                           formData.status === s 
-                            ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20' 
-                            : 'bg-white/5 text-foreground/20 hover:bg-white/10'
+                            ? 'bg-primary text-secondary shadow-[0_0_30px_rgba(var(--primary-rgb),0.3)] border-transparent' 
+                            : 'bg-surface-standard text-foreground/20 hover:bg-surface-standard/80 border border-outline/5'
                         }`}
                       >
                         {s.replace('_', ' ')}
@@ -429,7 +429,7 @@ export function TaskModal({ isOpen, onClose, taskId, userId }: TaskModalProps) {
                           <button
                             type="button"
                             onClick={() => updateSubtask(index, { completed: !subtask.completed })}
-                            className={`p-1.5 rounded-lg transition-colors ${subtask.completed ? 'bg-kinetic text-white' : 'bg-white/5 text-white/10 hover:text-white/30'}`}
+                            className={`p-1.5 rounded-lg transition-colors ${subtask.completed ? 'bg-primary text-secondary shadow-[0_0_15px_rgba(var(--primary-rgb),0.2)]' : 'bg-surface-standard text-foreground/10 hover:text-foreground/30 border border-outline/5'}`}
                           >
                             <CheckCircle2 className="w-4 h-4" />
                           </button>
@@ -506,14 +506,14 @@ export function TaskModal({ isOpen, onClose, taskId, userId }: TaskModalProps) {
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-8 py-3.5 border border-white/5 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] text-foreground/40 hover:bg-white/5 transition-all"
+                  className="px-8 py-3.5 border border-outline/10 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] text-foreground/40 hover:bg-surface-standard transition-all"
                 >
-                  Terminate
+                  Discard
                 </button>
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="px-10 py-3.5 bg-primary text-primary-foreground shadow-xl shadow-primary/20 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50"
+                  className="px-10 py-3.5 bg-primary text-secondary shadow-[0_0_40px_rgba(var(--primary-rgb),0.3)] rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:scale-[1.02] active:scale-[0.98] hover:shadow-[0_0_50px_rgba(var(--primary-rgb),0.4)] transition-all disabled:opacity-50"
                 >
                   {isLoading ? 'Processing...' : taskId ? 'Commit Changes' : 'Initialize Cycle'}
                 </button>

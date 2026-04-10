@@ -13,10 +13,10 @@ import { useDashboardStore } from "@/stores/dashboardStore";
 import { useTaskModal } from "@/hooks/useTaskModal";
 
 const PRIORITY_CONFIG = {
-  high:   { bar: "bg-rose-500",   badge: "bg-rose-500/15 text-rose-300 border-rose-500/25",    icon: Flame,  label: "High" },
-  medium: { bar: "bg-amber-500",  badge: "bg-amber-500/15 text-amber-300 border-amber-500/25",  icon: Zap,    label: "Medium" },
-  low:    { bar: "bg-violet-500", badge: "bg-violet-500/15 text-violet-300 border-violet-500/25", icon: Leaf, label: "Low" },
-  none:   { bar: "bg-slate-600",  badge: "bg-slate-700/40 text-slate-400 border-slate-600/25",  icon: Leaf,   label: "None" },
+  high:   { bar: "bg-red-400/80",   badge: "bg-red-400/10 text-red-400 border-red-400/20",    icon: Flame,  label: "High" },
+  medium: { bar: "bg-orange-400/80",  badge: "bg-orange-400/10 text-orange-400 border-orange-400/20",  icon: Zap,    label: "Medium" },
+  low:    { bar: "bg-primary/80", badge: "bg-primary/10 text-primary border-primary/20", icon: Leaf, label: "Low" },
+  none:   { bar: "bg-foreground/10",  badge: "bg-foreground/5 text-foreground/30 border-foreground/10",  icon: Leaf,   label: "None" },
 };
 
 interface TaskCardProps {
@@ -41,7 +41,7 @@ export function TaskCard({ task, isDragOverlay }: TaskCardProps) {
         particleCount: 60,
         spread: 70,
         origin: { x: (rect.left + rect.width / 2) / window.innerWidth, y: (rect.top + rect.height / 2) / window.innerHeight },
-        colors: ["#818cf8", "#34d399", "#fbbf24", "#fb7185"],
+        colors: ["#799185", "#a2b5ab", "#3f4944", "#ffffff"],
       });
       toast.success("Task completed! 🎉", { duration: 2000 });
     }
@@ -63,10 +63,10 @@ export function TaskCard({ task, isDragOverlay }: TaskCardProps) {
     const due = new Date(task.due_date);
     dateLabel = format(due, "MMM d");
     if (isPast(due) && !isToday(due) && !isCompleted) {
-      dateColor = "text-rose-400"; DateIcon = AlertTriangle;
+      dateColor = "text-red-400"; DateIcon = AlertTriangle;
       dateLabel = `Overdue · ${dateLabel}`;
     } else if (isToday(due)) {
-      dateColor = "text-amber-400"; DateIcon = Clock;
+      dateColor = "text-orange-400"; DateIcon = Clock;
       dateLabel = `Today · ${dateLabel}`;
     }
   }
@@ -85,7 +85,7 @@ export function TaskCard({ task, isDragOverlay }: TaskCardProps) {
       <div
         ref={setNodeRef}
         style={style}
-        className="h-[110px] rounded-2xl border-2 border-dashed border-violet-500/30 bg-violet-500/5"
+        className="h-[110px] rounded-2xl border border-dashed border-primary/20 bg-primary/5"
       />
     );
   }
@@ -103,9 +103,9 @@ export function TaskCard({ task, isDragOverlay }: TaskCardProps) {
         }`}
         style={{
           ...style,
-          background: "rgba(23,32,53,0.8)",
+          background: "rgba(6,11,9,0.7)", // Deep forest bg
           backdropFilter: "blur(12px)",
-          boxShadow: isCompleted ? "none" : "0 2px 12px rgba(0,0,0,0.3)",
+          boxShadow: isCompleted ? "none" : "0 4px 16px rgba(0,0,0,0.4)",
         }}
       >
         {/* Top priority stripe */}
@@ -119,8 +119,8 @@ export function TaskCard({ task, isDragOverlay }: TaskCardProps) {
               onClick={handleComplete}
               className={`flex-shrink-0 mt-0.5 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
                 isCompleted
-                  ? "bg-emerald-500 border-emerald-500 scale-110"
-                  : "border-white/20 hover:border-emerald-400 hover:scale-110"
+                  ? "bg-primary border-primary scale-110"
+                  : "border-white/20 hover:border-primary/60 hover:scale-110"
               }`}
             >
               <AnimatePresence>

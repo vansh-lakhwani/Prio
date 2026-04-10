@@ -8,10 +8,10 @@ import { useTaskModal } from "@/hooks/useTaskModal";
 import { Calendar, Flame, Zap, Leaf, ChevronRight } from "lucide-react";
 
 const PRIORITY_STYLES = {
-  high:   { bar: "bg-rose-500",   badge: "bg-rose-500/15 text-rose-300 border-rose-500/25",    label: "High",   icon: Flame },
-  medium: { bar: "bg-amber-500",  badge: "bg-amber-500/15 text-amber-300 border-amber-500/25",  label: "Medium", icon: Zap   },
-  low:    { bar: "bg-violet-500", badge: "bg-violet-500/15 text-violet-300 border-violet-500/25", label: "Low",  icon: Leaf  },
-  none:   { bar: "bg-slate-600",  badge: "bg-slate-700/40 text-slate-400 border-slate-600/25",   label: "None",  icon: Leaf  },
+  high:   { bar: "bg-accent-warning",   badge: "bg-accent-warning/10 text-accent-warning border-accent-warning/20",    label: "High",   icon: Flame },
+  medium: { bar: "bg-accent-earth",  badge: "bg-accent-earth/10 text-accent-earth border-accent-earth/20",  label: "Medium", icon: Zap   },
+  low:    { bar: "bg-primary", badge: "bg-primary/10 text-primary border-primary/20", label: "Low",  icon: Leaf  },
+  none:   { bar: "bg-foreground/10",  badge: "bg-foreground/5 text-foreground/30 border-foreground/10",   label: "None",  icon: Leaf  },
 };
 
 export function UpcomingTasks() {
@@ -36,7 +36,7 @@ export function UpcomingTasks() {
     <div className="flex flex-col gap-4">
       {/* Header */}
       <div className="flex items-center gap-3 px-1">
-        <div className="p-2.5 rounded-2xl bg-cyan-500/10 text-cyan-400">
+        <div className="p-2.5 rounded-2xl bg-primary/10 text-primary">
           <Calendar className="w-5 h-5" />
         </div>
         <div>
@@ -60,19 +60,18 @@ export function UpcomingTasks() {
               whileTap={{ scale: 0.96 }}
               className={`relative flex flex-col items-center justify-center py-4 rounded-xl transition-all duration-300 ${
                 isSelected
-                  ? "bg-gradient-to-b from-violet-600 to-indigo-600 text-white shadow-lg"
+                  ? "bg-primary text-secondary shadow-[0_4px_20px_rgba(var(--primary-rgb),0.3)]"
                   : isTodayDate
-                    ? "bg-cyan-500/10 border border-cyan-500/20 text-cyan-400"
-                    : "text-foreground/40 hover:bg-surface-highest/60 hover:text-foreground/70"
+                    ? "bg-primary/10 border border-primary/20 text-primary"
+                    : "text-foreground/40 hover:bg-surface-standard hover:text-foreground/70"
               }`}
-              style={isSelected ? { boxShadow: "0 4px 20px rgba(129,140,248,0.4)" } : undefined}
             >
               <span className="text-[10px] font-black uppercase tracking-wider mb-1 opacity-70">
                 {format(date, "EEE")}
               </span>
               <span className="text-xl font-black font-display leading-none">{format(date, "d")}</span>
               {taskCount > 0 && (
-                <div className={`mt-1.5 w-1.5 h-1.5 rounded-full ${isSelected ? "bg-white/80" : "bg-violet-500"}`} />
+                <div className={`mt-1.5 w-1.5 h-1.5 rounded-full ${isSelected ? "bg-secondary/80" : "bg-primary/50"}`} />
               )}
             </motion.button>
           );
@@ -81,12 +80,12 @@ export function UpcomingTasks() {
 
       {/* Selected date label */}
       <div className="flex items-center gap-2 px-1">
-        <div className="w-1 h-5 rounded-full bg-cyan-500" />
+        <div className="w-1 h-5 rounded-full bg-primary" />
         <span className="text-sm font-black text-foreground/50 uppercase tracking-widest">
           {isToday(selectedDate) ? "Today" : format(selectedDate, "EEEE")} · {format(selectedDate, "MMMM d, yyyy")}
         </span>
         {filteredTasks.length > 0 && (
-          <span className="ml-auto text-xs font-black text-cyan-400/60 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">
+          <span className="ml-auto text-xs font-black text-primary/60 bg-primary/10 px-3 py-1 rounded-full border border-primary/20">
             {filteredTasks.length} task{filteredTasks.length !== 1 ? "s" : ""}
           </span>
         )}

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
@@ -94,7 +94,7 @@ export function EditTaskModal({ task, onClose }: EditTaskModalProps) {
       updateTaskOptimistic(task.id, updates);
       
       toast.success("Task updated", {
-        icon: <div className="w-4 h-4 rounded-full bg-blue-500" />
+        icon: <div className="w-4 h-4 rounded-full bg-primary" />
       });
       
       onClose();
@@ -124,7 +124,7 @@ export function EditTaskModal({ task, onClose }: EditTaskModalProps) {
         className={`relative flex flex-col w-full max-w-2xl bg-surface rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 fade-in duration-200 h-[90vh] sm:h-auto sm:max-h-[85vh] ${isHoveringClose ? 'scale-[0.99] transition-transform' : 'transition-transform'}`}
       >
         {/* Header */}
-        <div className="flex-shrink-0 flex items-center justify-between p-6 border-b border-outline/10 bg-black/10">
+        <div className="flex-shrink-0 flex items-center justify-between p-6 border-b border-outline/10 bg-surface-standard/50">
           <div className="flex items-center gap-4">
              <h2 className="text-xl font-bold font-space-grotesk tracking-tight">Edit Task</h2>
           </div>
@@ -132,7 +132,7 @@ export function EditTaskModal({ task, onClose }: EditTaskModalProps) {
             <button
                type="button"
                onClick={handleDelete}
-               className="p-2 text-foreground/40 hover:text-red-500 hover:bg-red-500/10 rounded-full transition-all"
+               className="p-2 text-foreground/40 hover:text-accent-warning hover:bg-accent-warning/10 rounded-full transition-all"
                title="Delete task"
             >
                <Trash2 className="w-5 h-5" />
@@ -142,7 +142,7 @@ export function EditTaskModal({ task, onClose }: EditTaskModalProps) {
               onClick={onClose}
               onMouseEnter={() => setIsHoveringClose(true)}
               onMouseLeave={() => setIsHoveringClose(false)}
-              className="p-2 -mr-2 text-foreground/40 hover:text-foreground hover:bg-[#18221d]/10 rounded-full transition-all"
+              className="p-2 -mr-2 text-foreground/40 hover:text-foreground hover:bg-primary/10 rounded-full transition-all"
             >
               <X className="w-5 h-5" />
             </button>
@@ -164,11 +164,11 @@ export function EditTaskModal({ task, onClose }: EditTaskModalProps) {
                      autoFocus
                      type="text"
                      placeholder="Task Name"
-                     className={`w-full bg-transparent text-2xl sm:text-3xl font-bold font-space-grotesk border-b border-transparent focus:border-kinetic/50 focus:outline-none transition-colors pb-2 placeholder:text-foreground/20 ${errors.title ? 'border-red-500/50' : ''}`}
+                     className={`w-full bg-transparent text-2xl sm:text-3xl font-bold font-space-grotesk border-b border-transparent focus:border-primary/50 focus:outline-none transition-colors pb-2 placeholder:text-foreground/20 ${errors.title ? 'border-accent-warning/50' : ''}`}
                    />
                  )}
                />
-               {errors.title && <span className="absolute -bottom-5 left-0 text-xs font-semibold text-red-500">{errors.title.message}</span>}
+               {errors.title && <span className="absolute -bottom-5 left-0 text-xs font-semibold text-accent-warning">{errors.title.message}</span>}
             </div>
 
             {/* Matrix Attributes Grid */}
@@ -252,7 +252,7 @@ export function EditTaskModal({ task, onClose }: EditTaskModalProps) {
         </div>
 
         {/* Footer Actions */}
-        <div className="flex-shrink-0 p-6 border-t border-outline/10 bg-black/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex-shrink-0 p-6 border-t border-outline/10 bg-surface-standard/50 flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="text-xs font-semibold text-foreground/30 flex items-center gap-1 hidden sm:flex">
              {isDirty ? (
                 <>
@@ -274,7 +274,7 @@ export function EditTaskModal({ task, onClose }: EditTaskModalProps) {
                type="submit" 
                form="edit-task-form"
                disabled={isLoading || !isDirty}
-               className="flex-1 sm:flex-none flex justify-center items-center gap-2 px-6 py-2.5 font-bold bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-all shadow-lg hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-50"
+               className="flex-1 sm:flex-none flex justify-center items-center gap-2 px-6 py-2.5 font-bold bg-primary text-background rounded-xl hover:bg-accent-verdant transition-all shadow-lg hover:shadow-primary/20 disabled:pointer-events-none disabled:opacity-50"
              >
                {isLoading ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                Save Changes

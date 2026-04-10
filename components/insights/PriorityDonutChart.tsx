@@ -10,10 +10,10 @@ interface PriorityDonutChartProps {
 }
 
 const COLORS: Record<string, string> = {
-  high: '#F43F5E', // Rose 500
-  medium: '#FB7185', // Rose 400
-  low: '#FDA4AF', // Rose 300
-  none: '#3f3f46' 
+  high:   '#f87171', // Red 400
+  medium: '#fb923c', // Orange 400
+  low:    '#799185', // Botanical Sage (Primary)
+  none:   '#3f4944'  // Dark Slate
 };
 
 export function PriorityDonutChart({ tasks }: PriorityDonutChartProps) {

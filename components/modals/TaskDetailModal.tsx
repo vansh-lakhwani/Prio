@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { format } from "date-fns";
@@ -52,7 +52,7 @@ export function TaskDetailModal({ task, onClose, onEdit }: TaskDetailModalProps)
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="flex-shrink-0 flex items-center justify-between p-6 border-b border-outline/10 bg-black/10"
+          className="flex-shrink-0 flex items-center justify-between p-6 border-b border-outline/10 bg-surface-standard/50"
         >
           <div className="flex items-center gap-4">
              <div className="flex items-center gap-2">
@@ -79,7 +79,7 @@ export function TaskDetailModal({ task, onClose, onEdit }: TaskDetailModalProps)
               onClick={onClose}
               onMouseEnter={() => setIsHoveringClose(true)}
               onMouseLeave={() => setIsHoveringClose(false)}
-              className="p-2 -mr-2 text-foreground/40 hover:text-foreground hover:bg-[#18221d]/10 rounded-full transition-all"
+              className="p-2 -mr-2 text-foreground/40 hover:text-foreground hover:bg-primary/10 rounded-full transition-all"
             >
               <X className="w-5 h-5" />
             </button>

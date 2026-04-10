@@ -17,7 +17,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Prio - Secure & Kinetic Task Management",
+  title: "Prio-Your Priorities Simplified",
   description: "A professional, verdant kinetic task manager for seamless productivity.",
 };
 

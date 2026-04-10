@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
@@ -11,9 +11,9 @@ interface LabelMultiSelectProps {
 }
 
 const fallbackLabels: TaskLabel[] = [
-  { id: "l1", name: "Frontend", color: "border-blue-500/50 bg-blue-500/10 text-blue-100" },
-  { id: "l2", name: "Bug", color: "border-red-500/50 bg-red-500/10 text-red-100" },
-  { id: "l3", name: "Feature", color: "border-verdant-primary/50 bg-verdant-primary/10 text-verdant-primary" },
+  { id: "l1", name: "Engineering", color: "border-primary/30 bg-primary/10 text-primary" },
+  { id: "l2", name: "Urgent", color: "border-accent-warning/30 bg-accent-warning/10 text-accent-warning" },
+  { id: "l3", name: "Concept", color: "border-accent-verdant/30 bg-accent-verdant/10 text-accent-verdant" },
 ];
 
 export function LabelMultiSelect({ value, onChange }: LabelMultiSelectProps) {
@@ -33,7 +33,7 @@ export function LabelMultiSelect({ value, onChange }: LabelMultiSelectProps) {
 
   return (
     <Popover className="relative w-full">
-      <PopoverButton className="flex w-full min-h-[46px] items-center justify-between bg-[#18221d]/5 border border-outline/10 rounded-xl px-3 py-2 text-left focus:outline-none focus:border-kinetic/50 transition-colors">
+      <PopoverButton className="flex w-full min-h-[46px] items-center justify-between bg-surface-standard/5 border border-outline/10 rounded-xl px-3 py-2 text-left focus:outline-none focus:border-primary/50 transition-colors">
         {selectedLabels.length > 0 ? (
           <div className="flex flex-wrap gap-2">
             {selectedLabels.map((l) => (
@@ -80,7 +80,7 @@ export function LabelMultiSelect({ value, onChange }: LabelMultiSelectProps) {
               <div className={`px-2 py-0.5 rounded-md text-xs font-semibold border ${lbl.color}`}>
                  {lbl.name}
               </div>
-              {isSelected && <Check className="w-4 h-4 text-kinetic" />}
+              {isSelected && <Check className="w-4 h-4 text-primary" />}
             </button>
           )
         })}
@@ -113,7 +113,7 @@ export function LabelMultiSelect({ value, onChange }: LabelMultiSelectProps) {
             <button 
               type="button" 
               onClick={() => setIsCreating(true)}
-              className="flex items-center gap-2 w-full px-3 py-2 text-sm text-foreground/50 hover:text-kinetic transition-colors"
+              className="flex items-center gap-2 w-full px-3 py-2 text-sm text-foreground/50 hover:text-primary transition-colors"
             >
               <Plus className="w-4 h-4" /> Create Label
             </button>

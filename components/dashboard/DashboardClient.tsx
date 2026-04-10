@@ -82,9 +82,9 @@ export function DashboardClient({ userId, initialTasks, initialStats, initialAct
                   {activeTab === tab.id && (
                     <motion.div
                       layoutId="activeTab"
-                      className="absolute inset-0 rounded-2xl bg-gradient-to-r from-violet-600 to-indigo-600 -z-10"
+                      className="absolute inset-0 rounded-2xl bg-primary -z-10"
                       transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
-                      style={{ boxShadow: "0 4px 20px rgba(129,140,248,0.4)" }}
+                      style={{ boxShadow: "0 4px 20px rgba(var(--primary-rgb),0.3)" }}
                     />
                   )}
                   <tab.icon className="w-4 h-4" />
@@ -94,12 +94,12 @@ export function DashboardClient({ userId, initialTasks, initialStats, initialAct
             </div>
 
             {/* Live indicator */}
-            <div className={`flex items-center gap-2 px-4 py-2 rounded-full border ${isRealtimeConnected ? 'bg-emerald-500/10 border-emerald-500/20' : 'bg-red-500/10 border-red-500/20'}`}>
+            <div className={`flex items-center gap-2 px-4 py-2 rounded-full border ${isRealtimeConnected ? 'bg-primary/10 border-primary/20' : 'bg-red-500/10 border-red-500/20'}`}>
               <span className="relative flex h-2 w-2">
-                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isRealtimeConnected ? 'bg-emerald-400' : 'bg-red-500'}`} />
-                <span className={`relative inline-flex rounded-full h-2 w-2 ${isRealtimeConnected ? 'bg-emerald-500' : 'bg-red-500'}`} />
+                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isRealtimeConnected ? 'bg-primary' : 'bg-red-500'}`} />
+                <span className={`relative inline-flex rounded-full h-2 w-2 ${isRealtimeConnected ? 'bg-primary' : 'bg-red-500'}`} />
               </span>
-              <span className={`text-[10px] font-black uppercase tracking-[0.2em] ${isRealtimeConnected ? 'text-emerald-400/70' : 'text-red-400/70'}`}>
+              <span className={`text-[10px] font-black uppercase tracking-[0.2em] ${isRealtimeConnected ? 'text-primary' : 'text-red-400/70'}`}>
                 {isRealtimeConnected ? "Live" : "Offline"}
               </span>
             </div>

@@ -71,18 +71,18 @@ export function KPICards({ tasks, stats, activity, range }: KPICardsProps) {
       label: "Cycle Consistency",
       value: streak,
       suffix: "days",
-      icon: <Flame className="w-5 h-5 text-amber-500" />,
-      color: "amber",
-      trend: <span className="text-amber-500/60 uppercase tracking-widest text-[9px] font-black">Peak: {stats?.longest_streak || 0}</span>,
+      icon: <Flame className="w-5 h-5 text-orange-400" />,
+      color: "orange",
+      trend: <span className="text-orange-400/60 uppercase tracking-widest text-[9px] font-black">Peak: {stats?.longest_streak || 0}</span>,
     },
     {
       title: "Focus Density",
       label: "Resolution Speed",
       value: avgHours < 24 ? avgHours.toFixed(1) : (avgHours / 24).toFixed(1),
       suffix: avgHours < 24 ? "hrs" : "days",
-      icon: <Timer className="w-5 h-5 text-blue-500" />,
-      color: "blue",
-      trend: <span className="text-blue-500/60 uppercase tracking-widest text-[9px] font-black">High Efficiency</span>,
+      icon: <Timer className="w-5 h-5 text-primary" />,
+      color: "primary",
+      trend: <span className="text-primary/60 uppercase tracking-widest text-[9px] font-black">High Efficiency</span>,
     }
   ];
 

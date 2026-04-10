@@ -9,10 +9,10 @@ import { Task } from "@/types/dashboard";
 import { format, isToday, isPast } from "date-fns";
 
 const PRIORITY_STYLES = {
-  high:   { bar: "bg-rose-500",   badge: "bg-rose-500/15 text-rose-300 border-rose-500/30",    glow: "0 0 0 1px rgba(251,113,133,0.15), 0 4px 24px rgba(251,113,133,0.12)", label: "High",   dot: "bg-rose-500" },
-  medium: { bar: "bg-amber-500",  badge: "bg-amber-500/15 text-amber-300 border-amber-500/30",  glow: "0 0 0 1px rgba(251,191,36,0.15),  0 4px 24px rgba(251,191,36,0.12)",  label: "Medium", dot: "bg-amber-500" },
-  low:    { bar: "bg-violet-500", badge: "bg-violet-500/15 text-violet-300 border-violet-500/30", glow: "0 0 0 1px rgba(129,140,248,0.15), 0 4px 24px rgba(129,140,248,0.12)", label: "Low",  dot: "bg-violet-500" },
-  none:   { bar: "bg-slate-600",  badge: "bg-slate-700/40 text-slate-400 border-slate-600/30",   glow: "0 0 0 1px rgba(100,116,139,0.1)",                                      label: "None",   dot: "bg-slate-500" },
+  high:   { bar: "bg-red-400/80",   badge: "bg-red-400/10 text-red-400 border-red-400/20",    glow: "0 0 40px rgba(248,113,113,0.05)", label: "High",   dot: "bg-red-400" },
+  medium: { bar: "bg-orange-400/80", badge: "bg-orange-400/10 text-orange-400 border-orange-400/20", glow: "0 0 40px rgba(251,146,60,0.05)", label: "Medium", dot: "bg-orange-400" },
+  low:    { bar: "bg-primary/80", badge: "bg-primary/10 text-primary border-primary/20", glow: "0 0 40px rgba(var(--primary-rgb),0.05)", label: "Low",  dot: "bg-primary" },
+  none:   { bar: "bg-foreground/10",  badge: "bg-foreground/5 text-foreground/30 border-foreground/10",   glow: "none", label: "None",   dot: "bg-foreground/20" },
 };
 
 export function TodaysTasks() {
@@ -40,7 +40,7 @@ export function TodaysTasks() {
         particleCount: 80,
         spread: 80,
         origin: { x: (rect.left + rect.width / 2) / window.innerWidth, y: (rect.top + rect.height / 2) / window.innerHeight },
-        colors: ["#818cf8", "#34d399", "#fbbf24", "#fb7185", "#22d3ee"],
+        colors: ["#799185", "#3f4944", "#a2b5ab", "#dbe5de", "#101a14"],
       });
     }
     await toggleTaskCompletion(task.id, task.status);
@@ -52,7 +52,7 @@ export function TodaysTasks() {
       <div className="flex items-center justify-between px-1">
         <div className="flex items-center gap-3">
           <motion.div
-            className="p-2.5 rounded-2xl bg-violet-500/15 text-violet-400"
+            className="p-2.5 rounded-2xl bg-primary/10 text-primary"
             animate={{ scale: [1, 1.06, 1] }}
             transition={{ duration: 2.5, repeat: Infinity }}
           >
@@ -65,12 +65,12 @@ export function TodaysTasks() {
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-2 px-4 py-2 bg-violet-500/10 rounded-2xl border border-violet-500/20">
+        <div className="flex items-center gap-2 px-4 py-2 bg-primary/5 rounded-2xl border border-primary/10">
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-violet-500" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
           </span>
-          <span className="text-xs font-black text-violet-400/70 uppercase tracking-widest">{activeTasks.length} Active</span>
+          <span className="text-xs font-black text-primary uppercase tracking-widest">{activeTasks.length} Active</span>
         </div>
       </div>
 
@@ -107,7 +107,7 @@ export function TodaysTasks() {
                       onClick={e => handleToggle(task, e)}
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
-                      className="w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0 bg-surface-standard/80 text-foreground/20 hover:bg-emerald-500/20 hover:text-emerald-400 transition-all duration-300 ring-1 ring-white/8"
+                      className="w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0 bg-surface-standard/80 text-foreground/20 hover:bg-primary/20 hover:text-primary transition-all duration-300 ring-1 ring-white/5 shadow-inner"
                     >
                       <Check className="w-5 h-5" />
                     </motion.button>
@@ -126,7 +126,7 @@ export function TodaysTasks() {
 
                         {/* Due date */}
                         {task.due_date && (
-                          <span className={`flex items-center gap-1.5 text-xs font-bold ${isOverdue ? "text-rose-400" : isDueToday ? "text-amber-400" : "text-foreground/35"}`}>
+                          <span className={`flex items-center gap-1.5 text-xs font-bold ${isOverdue ? "text-red-400" : isDueToday ? "text-orange-400" : "text-foreground/35"}`}>
                             {isOverdue ? <AlertTriangle className="w-3.5 h-3.5" /> : <Clock className="w-3.5 h-3.5" />}
                             {isOverdue ? "Overdue · " : isDueToday ? "Today · " : ""}{format(new Date(task.due_date), "MMM d, yyyy")}
                           </span>
@@ -173,7 +173,7 @@ export function TodaysTasks() {
             <motion.div
               animate={{ scale: [1, 1.08, 1] }}
               transition={{ duration: 3, repeat: Infinity }}
-              className="w-20 h-20 rounded-3xl bg-emerald-500/10 flex items-center justify-center mb-5 text-emerald-400"
+              className="w-20 h-20 rounded-3xl bg-primary/10 flex items-center justify-center mb-5 text-primary"
             >
               <CheckCircle className="w-10 h-10" />
             </motion.div>
@@ -188,7 +188,7 @@ export function TodaysTasks() {
         onClick={() => open()}
         whileHover={{ scale: 1.01 }}
         whileTap={{ scale: 0.99 }}
-        className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl bg-gradient-to-r from-violet-600/25 to-indigo-600/25 text-violet-300 font-black font-display uppercase text-sm tracking-widest hover:from-violet-600/35 hover:to-indigo-600/35 transition-all duration-300 ring-1 ring-violet-500/25 hover:ring-violet-500/50 group"
+        className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl bg-primary/5 text-primary font-black font-display uppercase text-sm tracking-widest hover:bg-primary/10 transition-all duration-300 ring-1 ring-primary/20 group"
       >
         <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" />
         Initialize New Cycle
